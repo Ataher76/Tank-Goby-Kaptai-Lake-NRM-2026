@@ -20,7 +20,7 @@ This repository contains the research data and analytical scripts for the stock 
 ## **How to Cite**
 If you use the data or code from this repository, please cite the original article:
 
-> Ali, A. (2026). **Stock Status Evaluation of the Tank Goby (Glossogobius giuris) in Kaptai Lake, Bangladesh.** [Insert Journal Name/DOI].
+> Alam, M. S., Ali, A.*, Mustafa, A. (2026). Length-Based Stock Assessment of Glossogobius giuris (tank goby) in Kaptai Lake, Bangladesh: Implications for Sustainable Fisheries. Natural Resource and Modeling, 39(1), e70025. https://doi.org/10.1111/nrm.70025
 
 ---
 
