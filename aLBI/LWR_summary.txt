@@ -1,0 +1,29 @@
+Length-Weight Relationship Model Summary
+======================================
+Equation: W = 0.0155 L^2.6801 
+Intercept: 0.0155 
+Slope: 2.6801 
+R-squared: 0.9155 
+Correlation coefficient (r): 0.9568 
+P-value: 0 
+
+Full Model Summary:
+
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3654 -0.0911 -0.0033  0.0786  3.6276 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -4.16754    0.04256  -97.93   <2e-16 ***
+x            2.68010    0.02104  127.39   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2289 on 1498 degrees of freedom
+Multiple R-squared:  0.9155,	Adjusted R-squared:  0.9154 
+F-statistic: 1.623e+04 on 1 and 1498 DF,  p-value: < 2.2e-16
+

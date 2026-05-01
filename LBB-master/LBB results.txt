@@ -1,0 +1,110 @@
+LBB results for Illex coindettii, stock Bm, 2024-2024
+> cat("Files:",ID.File,", ",dat.ID$File,sep="","\n")
+Files:Example_ID.csv, Example_Dat.csv
+> cat("-----------------------------------------------------------------------\n")
+-----------------------------------------------------------------------
+> cat("Linf prior= ",Linf.pr,", SD=",format(Linf.sd.pr,digits=2)," cm ",ifelse(is.na(dat.ID$Linf.user)==TRUE,"","(user-defined), "),
++           "Lmax=",Lmax,", median Lmax=",Lmax.med,sep="","\n")
+Linf prior= 18.8, SD=0.19 cm (user-defined), Lmax=16, median Lmax=16
+> cat("Z/K prior = ",format(ZK.nls,digits=2),", SD=", format(ZK.nls.sd,digits=2),", M/K prior=", MK.pr, ", SD=",MK.sd.pr,
++           ifelse(is.na(dat.ID$MK.user)==TRUE,"","(user-defined)"),sep="","\n") 
+Z/K prior = 3.2, SD=0.49, M/K prior=1.82, SD=0.075(user-defined)
+> if(dat.ID$GausSel==F) { 
++   cat("F/K prior =", FK.pr, "(wide range with tau=4 in log-normal distribution)\n")
++   cat("Lc prior  = ",Lc.pr,", SD=",format(Lc.sd.pr,digits=2)," cm",
++             ifelse(is.na(dat.ID$Lc.user)==TRUE,""," (user-defined)"),
++             ", alpha prior=",r.alpha.pr,", SD=",format(0.1*r.alpha.pr,digits=2),
++             ", Lm50=", dat.ID$Lm50,ifelse(dat.ID$mm.user==F," cm"," mm"),sep="","\n") }
+F/K prior = 1.35 (wide range with tau=4 in log-normal distribution)
+Lc prior  = 6.78, SD=0.34 cm (user-defined), alpha prior=13.6, SD=1.4, Lm50=11.8 cm
+> if(dat.ID$Pile != 0) {
++   cat("Pile-up correction applied with weight", format(ifelse(dat.ID$Pile==1.0,1.0,
++               median(jagsfitSLN$BUGSoutput$sims.list$pile.fac)),nsmall=2),"\n")}
+> cat("\n")
+
+> 
+> cat("General reference points (median across years): \n")
+General reference points (median across years): 
+> cat("Linf     = ",Linf.med," (",Linf.lcl,"-",Linf.ucl,
++                         ifelse(dat.ID$mm.user==F,") cm",") mm"), sep="", "\n")  
+Linf     = 17.5 (17.1-17.8) cm
+> cat("Lopt     = ",format(Lopt.med,digits=2),ifelse(dat.ID$mm.user==F," cm,"," mm,")," Lopt/Linf=",format(r.Lopt.med,digits=2),sep="","\n")
+Lopt     = 12 cm, Lopt/Linf=0.66
+> cat("Lc_opt   = ",format(Lc_opt.med,digits=2),ifelse(dat.ID$mm.user==F," cm,"," mm,"),
++                   " Lc_opt/Linf=",format(Lc_opt.med/Linf.med,digits=2),
++                   ", Lmean if F=M ",LmeanFM,ifelse(dat.ID$mm.user==F," cm"," mm"),sep="","\n")
+Lc_opt   = 9.7 cm, Lc_opt/Linf=0.55, Lmean if F=M 9.13 cm
+> cat("M/K      = ",MK.med," (",MK.lcl,"-",MK.ucl,")",sep="","\n")
+M/K      = 1.56 (1.4-1.74)
+> cat("F/M      = ",FM.med," (",FM.lcl,"-",FM.ucl,"),"," F/K=",FK.med," (",FK.lcl,"-",FK.ucl,"),",
++                         " Z/K=",ZK.med," (",ZK.lcl,"-",ZK.ucl,")",sep="","\n")
+F/M      = 1.07 (0.845-1.41), F/K=1.68 (1.41-1.95), Z/K=3.27 (3-3.52)
+> 
+> cat("B/B0     = ",format(BB0.med,digits=2)," (",format(BB0.lcl,digits=2),"-",format(BB0.ucl,digits=2),")",
++                         ifelse(dat.ID$GausSel==F,", B/B0 F=M Lc=Lc_opt ",", B/B0 F=M Lmean=Lopt "),format(BFM1B0,digits=2),sep="","\n")
+B/B0     = 0.27 (0.19-0.37), B/B0 F=M Lc=Lc_opt 0.36
+> if(BB0.lcl < -0.4 || BB0.ucl > 2) {
++   cat(bold("WARNING: Uncertainty in B/B0 estimate is much too wide, data are unsuitable for stock assessment!\n"))
++   stop("Data are unsuitable")
++ }
+> 
+> cat("Y/R'     = ",format(YR.med,digits=2)," (",format(YR.lcl,digits=2),"-",format(YR.ucl,digits=2),")",
++                         ifelse(BB0.med < 0.25,"(reduced: B/B0<0.25),",", "),
++                         ifelse(dat.ID$GausSel==F,"Y/R' F=M Lc=Lc_opt ","Y/R' F=M Lmean=Lopt "),format(YRFM1,digits=2),sep="","\n\n")
+Y/R'     = 0.04 (0.028-0.054), Y/R' F=M Lc=Lc_opt 0.042
+
+> 
+> cat("Estimates for",EndYear,ifelse(smooth.ts==T,"(mean of last 3 years with data):",":"),"\n")
+Estimates for 2024 (mean of last 3 years with data): 
+> last            <- which(Ldat$Year==EndYear)
+> if(dat.ID$GausSel==F){
++  cat("Lc50      =",Lc.ts[last],paste("(",format(Lc.lcl.ts[last],digits=3),
++                     "-",format(Lc.ucl.ts[last],digits=3),ifelse(dat.ID$mm.user==F,") cm, Lc/Linf=",") mm, Lc/Linf"),
++                     format(Lc.ts[last]/Linf.ts[last],digits=2)," (",format(Lc.lcl.ts[last]/Linf.ts[last],digits=2),"-",
++                     format(Lc.ucl.ts[last]/Linf.ts[last],digits=2),")",sep=""),"\n")
++  
++  cat("Lc95      = ",format((r.alpha.ts[last]/Linf.ts[last]*Lc.ts[last]-log(1/0.95-1))/(r.alpha.ts[last]/Linf.ts[last]),digits=3), 
++      ", alpha=",format(r.alpha.ts[last]/Linf.ts[last],digits=3)," (",format(r.alpha.lcl.ts[last]/Linf.ts[last],digits=3),"-",
++      format(r.alpha.ucl.ts[last]/Linf.ts[last],digits=3),")",sep="","\n")
++  cat("Lmean/Lopt= ",format(Lmean.ts[last]/(r.Lopt.ts[last]*Linf.ts[last]),digits=2),
++      ", Lc/Lc_opt=",format(Lc.ts[last]/Lc_opt.med,digits=2),
++      ", L95th=", format(L95.ts[last],digits=3),ifelse(dat.ID$mm.user==F," cm,"," mm,"),
++      " L95th/Linf=",format(L95.ts[last]/Linf.ts[last],digits=2),
++      ", Mature=",format(Ldat$perc.mat[last]*100,digits=2),"%",sep="","\n")
++  } else if(dat.ID$GausSel==T){
++      cat("GLmean/Linf=",format(GLmean.ts[last]/Linf.ts[last],digits=2),",SD/Linf =",SD.ts[last]/Linf.ts[last],"\n")
++      cat("GLmean     =",GLmean.ts[last],",SD =",SD.ts[last],"\n")
++    }
+Lc50      = 6.45 (6.34-6.54) cm, Lc/Linf=0.37 (0.36-0.37) 
+Lc95      = 9.11, alpha=1.11 (1.08-1.13)
+Lmean/Lopt= 0.79, Lc/Lc_opt=0.67, L95th=16 cm, L95th/Linf=0.91, Mature=9.7%
+> cat("F/M       = ",format(FM.ts[last],digits=2)," (",format(FM.lcl.ts[last],digits=2),"-",format(FM.ucl.ts[last],digits=2),"), F/K=",
++     format(FK.ts[last],digits=2)," (",format(FK.lcl.ts[last],digits=2),"-",format(FK.ucl.ts[last],digits=2),"), Z/K=",
++     format(ZK.ts[last],digits=2)," (",format(ZK.lcl.ts[last],digits=2),"-",format(ZK.ucl.ts[last],digits=2),")",sep="","\n")
+F/M       = 1.1 (0.85-1.4), F/K=1.7 (1.4-2), Z/K=3.3 (3-3.5)
+> cat("Y/R'      = ",format(YR.ts[last],digits=2)," (",format(YR.lcl.ts[last],digits=2),"-",format(YR.ucl.ts[last],digits=2),")",
++                  ifelse(BB0.med < 0.25,"(reduced because B/B0 < 0.25)",""),sep="","\n")
+Y/R'      = 0.04 (0.028-0.054)
+> bestfityr = which(jagsFit == min(jagsFit))
+Warning message:
+In min(jagsFit) : no non-missing arguments to min; returning Inf
+> cat("B/B0      = ",format(BB0.ts[last],digits=2)," (",format(BB0.lcl.ts[last],digits=2),"-",
++     format(BB0.ucl.ts[last],digits=2),"),",
++     " best LF fit year ",Years[bestfityr],"=",format(BB0.ts[bestfityr],nsmall=2),
++     " (",format(BB0.lcl.ts[bestfityr],digits=2),"-",format(BB0.ucl.ts[bestfityr],digits=2),")",sep="","\n")
+B/B0      = 0.27 (0.19-0.37), best LF fit year = (-)
+> 
+> # print B/B0 for selected year
+> if(is.na(Year.sel)==F) {
++   BB0.sl     <- BB0.ts[Years==Year.sel]
++   BB0.lcl.sl <- BB0.lcl.ts[Years==Year.sel]
++   BB0.ucl.sl <- BB0.ucl.ts[Years==Year.sel]
++ } 
+> cat("B/Bmsy    = ",format(BB0.ts[last]/BFM1B0,digits=2)," (",format(BB0.lcl.ts[last]/BFM1B0,digits=2),"-",
++     format(BB0.ucl.ts[last]/BFM1B0,digits=2),")",
++     ifelse(is.na(Year.sel)==F,
++     bold(paste(", selected B/B0 ",Year.sel," = ",format(BB0.sl,digits=2)," (",format(BB0.lcl.sl,digits=2),"-",
++                                      format(BB0.ucl.sl,digits=2),")",sep="")),""),sep="","\n")
+B/Bmsy    = 0.75 (0.53-1)
+> if(dat.ID$Comment != "" && is.na(dat.ID$Comment)==F) cat(dat.ID$Comment,"\n")
+RF: removed years with chaotic LF; set Linf to 23 cm between median 20.5 and max 23.5, instead of 24.6 suggested by aggregated data. Selected 2009 for AMSY prior because of reasonable fit, CL, not too low B/B0 which makes predictions of k uncertain.  

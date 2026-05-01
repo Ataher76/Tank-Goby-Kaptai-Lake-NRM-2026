@@ -1,0 +1,2 @@
+File,Species,Stock,StartYear,EndYear,Years.user,Year.select,Gears.user,Lcut.user,Lc.user,Lstart.user,Linf.user,MK.user,mm.user,GausSel,MergeLF,Pile,Lm50,Comment,Source
+Example_Dat.csv,Illex coindettii,Bm,NA,NA,NA,NA,NA,NA,6.78,NA,18.8,1.82,FALSE,FALSE,FALSE,0,11.85,"RF: removed years with chaotic LF; set Linf to 23 cm between median 20.5 and max 23.5, instead of 24.6 suggested by aggregated data. Selected 2009 for AMSY prior because of reasonable fit, CL, not too low B/B0 which makes predictions of k uncertain. ",
